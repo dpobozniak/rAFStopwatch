@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>rAFStopwatch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <script type="module">
+    import Timer from './rAFStopwatch.js';
+
+    // Initialize timer
+    const counter = Timer({
+      countdown: true, // default `True`
+      delay: 10,
+      onRun: handleTimerRun,
+      onEnd: handleTimerEnd,
+    });
+
+    /**
+     * Fired on every second
+     * @param  {Number} time Current time
+     */
+    function handleTimerRun(time) {
+      console.log(time);
+    }
+
+    /**
+     * Fired when the timer is finished
+     * @param  {Number} time Current time
+     */
+    function handleTimerEnd(time) {
+      console.log('Timer finished', time);
+    }
+
+    document.querySelector('[data-element="start"]').addEventListener('click', () => counter.start());
+    document.querySelector('[data-element="pause"]').addEventListener('click', () => counter.pause());
+    document.querySelector('[data-element="resume"]').addEventListener('click', () => counter.resume());
+    document.querySelector('[data-element="stop"]').addEventListener('click', () => counter.stop());
+  </script>
+
+  <p><button data-element="button-start"">Start</button> <button data-element="button-stop">Stop / Reset</button></p>
+  <p><button data-element="button-pause">Pause</button> <button data-element="button-resume"">Resume</button></p>
+</body>
+</html>
